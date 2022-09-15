@@ -34,48 +34,55 @@ void setup()
   pinMode(som, OUTPUT);
 }
 
-void loop()
-{
-  
-  start = digitalRead(botao);
-
-  if (start == HIGH)
-  {
+void fecharParaMotorista() {
     MotoristaVerde.DESLIGAR();
     MotoristaAmarelo.LIGAR();
     delay(1000);
     MotoristaAmarelo.DESLIGAR();
     MotoristaVermelho.LIGAR();
-    
-    delay(2000);
+}
 
-    for (int i = 0; i < 10; i++)
+void abrirParaPedestre() {
+  for (int i = 0; i < 10; i++)
     {
-      MotoristaVermelho.DESLIGAR();
       PedestreVerde.LIGAR();
       tone(som, 440, 500);
       delay(1000);
     }
+}
 
-    for (int y = 0; y < 5; y++)
-    {
-      PedestreVerde.DESLIGAR();
-      tone(som, 440, 500);
-      PedestreVermelho.LIGAR();
-      delay(500);
-      PedestreVermelho.DESLIGAR();
-      delay(500);
-    }
+void abrirParaMotorista() {
+   MotoristaVermelho.DESLIGAR();
+   MotoristaVerde.LIGAR();
+}
 
-    PedestreVermelho.DESLIGAR();
-    delay(3000);
+void fecharParaPedestre() {
+   PedestreVerde.DESLIGAR();
+   PedestreVermelho.LIGAR();
+}
 
-    MotoristaVermelho.DESLIGAR();
-    MotoristaVerde.LIGAR();
+void loop()
+{
+ 
+   MotoristaVermelho.DESLIGAR();
+   MotoristaVerde.LIGAR();
+  
+  start = digitalRead(botao);
+
+  if (start == HIGH)
+  {
+    fecharParaMotorista();
+    
+    delay(2000);
+
+    abrirParaPedestre();
+
+    fecharParaPedestre();
+  
+    delay(1000);
+
+    abrirParaMotorista();
 
     delay(15000);
-  } else {
-    MotoristaVerde.DESLIGAR();
-    MotoristaVermelho.LIGAR();
   }
 }
