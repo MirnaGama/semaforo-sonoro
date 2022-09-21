@@ -66,6 +66,7 @@ void loop()
  
    MotoristaVermelho.DESLIGAR();
    MotoristaVerde.LIGAR();
+   PedestreVermelho.LIGAR();
   
   start = digitalRead(botao);
 
