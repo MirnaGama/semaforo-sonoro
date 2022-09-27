@@ -43,6 +43,7 @@ void fecharParaMotorista() {
 }
 
 void abrirParaPedestre() {
+  PedestreVermelho.DESLIGAR();
   for (int i = 0; i < 10; i++)
     {
       PedestreVerde.LIGAR();
