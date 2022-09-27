@@ -8,12 +8,12 @@ class SemaforoPino {
   pinMode(Luz, OUTPUT);
  }
 
- void LIGAR()
+ void ligar()
  {
   digitalWrite(Luz, HIGH);
  }
 
- void DESLIGAR()
+ void desligar()
  {
   digitalWrite(Luz, LOW);
  }
@@ -39,39 +39,39 @@ void setup()
 }
 
 void fecharParaMotorista() {
-    MotoristaVerde.DESLIGAR();
-    MotoristaAmarelo.LIGAR();
+    MotoristaVerde.desligar();
+    MotoristaAmarelo.ligar();
     delay(1000);
-    MotoristaAmarelo.DESLIGAR();
-    MotoristaVermelho.LIGAR();
+    MotoristaAmarelo.desligar();
+    MotoristaVermelho.ligar();
 }
 
 void abrirParaPedestre() {
-  PedestreVermelho.DESLIGAR();
+  PedestreVermelho.desligar();
   for (int i = 0; i < 10; i++)
     {
-      PedestreVerde.LIGAR();
+      PedestreVerde.ligar();
       tone(som, 440, 500);
       delay(1000);
     }
 }
 
 void abrirParaMotorista() {
-   MotoristaVermelho.DESLIGAR();
-   MotoristaVerde.LIGAR();
+   MotoristaVermelho.desligar();
+   MotoristaVerde.ligar();
 }
 
 void fecharParaPedestre() {
-   PedestreVerde.DESLIGAR();
-   PedestreVermelho.LIGAR();
+   PedestreVerde.desligar();
+   PedestreVermelho.ligar();
 }
 
 void loop()
 {
 
-   MotoristaVermelho.DESLIGAR();
-   MotoristaVerde.LIGAR();
-   PedestreVermelho.LIGAR();
+   MotoristaVermelho.desligar();
+   MotoristaVerde.ligar();
+   PedestreVermelho.ligar();
 
   int presenca = analogRead(A0);
 
