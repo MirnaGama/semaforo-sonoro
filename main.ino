@@ -1,22 +1,26 @@
 class SemaforoPino {
   int Luz;
-  
+
   public:
  SemaforoPino(int luz)
  {
   Luz = luz;
-  pinMode(Luz, OUTPUT);     
+  pinMode(Luz, OUTPUT);
  }
-  
+
  void LIGAR()
  {
   digitalWrite(Luz, HIGH);
- }   
-  
+ }
+
  void DESLIGAR()
  {
   digitalWrite(Luz, LOW);
- } 
+ }
+ 
+  boolean estaLigado() {
+    return (digitalRead(Luz) == HIGH);
+  }
 };
 
 int botao = 8;
@@ -64,23 +68,29 @@ void fecharParaPedestre() {
 
 void loop()
 {
- 
+
    MotoristaVermelho.DESLIGAR();
    MotoristaVerde.LIGAR();
    PedestreVermelho.LIGAR();
+
+  int presenca = analogRead(A0);
+
+  if (presenca > 0 && MotoristaVerde.estaLigado() == true) {
+    tone(som, 400, 500);
+  }
   
   start = digitalRead(botao);
 
   if (start == HIGH)
   {
     fecharParaMotorista();
-    
+
     delay(2000);
 
     abrirParaPedestre();
 
     fecharParaPedestre();
-  
+
     delay(1000);
 
     abrirParaMotorista();
