@@ -27,7 +27,7 @@ class AparelhoSonoro {
  int Piezo;
   
   public: AparelhoSonoro(int piezo) {
-    Piezo = piezo;
+   Piezo = piezo;
     pinMode(Piezo, OUTPUT);
   }
   
@@ -44,6 +44,20 @@ class AparelhoSonoro {
   }
 };
 
+class SemaforoBotao {
+  int Botao;
+  
+  public: SemaforoBotao(int botao) {
+   Botao = botao;
+   pinMode(Botao, INPUT);
+  }
+  
+  boolean acionado() {
+   return (digitalRead(Botao) == HIGH); 
+  }
+  
+};
+
 class DetectorPresenca {
   int sensorPIR;
   
@@ -56,8 +70,7 @@ class DetectorPresenca {
   }
 };
 
-int botao = 8;
-int start = 0;
+SemaforoBotao Botao(8);
 SemaforoPino MotoristaVermelho(13);
 SemaforoPino MotoristaAmarelo(12);
 SemaforoPino MotoristaVerde(11);
@@ -68,7 +81,8 @@ DetectorPresenca Sensor(A0);
 
 void setup()
 {
-  pinMode(botao, INPUT);
+  //pinMode(botao, INPUT);
+  //pinMode(som, OUTPUT);
 }
 
 void fecharParaMotorista() {
@@ -114,9 +128,9 @@ void loop()
     Som.desligar();
   }
   
-  start = digitalRead(botao);
+  boolean start = Botao.acionado();
 
-  if (start == HIGH)
+  if (start == true)
   {
     fecharParaMotorista();
 
