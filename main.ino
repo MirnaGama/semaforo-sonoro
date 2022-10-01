@@ -59,14 +59,14 @@ class SemaforoBotao {
 };
 
 class DetectorPresenca {
-  int sensorPIR;
+  int SensorPIR;
   
   public: DetectorPresenca(int sensor) {
-    sensorPIR = sensor;
+    SensorPIR = sensor;
   }
   
   boolean detectado() {
-    return analogRead(sensorPIR) > 0;
+    return analogRead(SensorPIR) > 0;
   }
 };
 
