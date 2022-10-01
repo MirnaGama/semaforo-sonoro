@@ -23,14 +23,35 @@ class SemaforoPino {
   }
 };
 
+class AparelhoSonoro {
+ int Piezo;
+  
+  public: AparelhoSonoro(int piezo) {
+    Piezo = piezo;
+    pinMode(Piezo, OUTPUT);
+  }
+  
+  void soarAlarme() {
+    tone(Piezo, 400, 500);
+  }
+  
+  void soarSinal() {
+    tone(Piezo, 440, 500);
+  }
+
+  void desligar() {
+    noTone(Piezo);
+  }
+};
+
 int botao = 8;
-int som = 10;
 int start = 0;
 SemaforoPino MotoristaVermelho(13);
 SemaforoPino MotoristaAmarelo(12);
 SemaforoPino MotoristaVerde(11);
 SemaforoPino PedestreVermelho(7);
 SemaforoPino PedestreVerde(6);
+AparelhoSonoro Som(10);
 
 void setup()
 {
@@ -51,7 +72,7 @@ void abrirParaPedestre() {
   for (int i = 0; i < 10; i++)
     {
       PedestreVerde.ligar();
-      tone(som, 440, 500);
+      Som.soarSinal();
       delay(1000);
     }
 }
@@ -76,7 +97,9 @@ void loop()
   int presenca = analogRead(A0);
 
   if (presenca > 0 && MotoristaVerde.estaLigado() == true) {
-    tone(som, 400, 500);
+    Som.soarAlarme();
+  } else {
+    Som.desligar();
   }
   
   start = digitalRead(botao);
