@@ -18,7 +18,7 @@ class SemaforoPino {
   digitalWrite(Luz, LOW);
  }
  
-  boolean estaLigado() {
+  boolean isLigado() {
     return (digitalRead(Luz) == HIGH);
   }
 };
@@ -52,7 +52,7 @@ class SemaforoBotao {
    pinMode(Botao, INPUT);
   }
   
-  boolean acionado() {
+  boolean isAcionado() {
    return (digitalRead(Botao) == HIGH); 
   }
   
@@ -122,13 +122,13 @@ void loop()
 
    boolean detectado = Sensor.detectado();
 
-  if (detectado && MotoristaVerde.estaLigado() == true) {
+  if (detectado && MotoristaVerde.isLigado() == true) {
     Som.soarAlarme();
   } else {
     Som.desligar();
   }
   
-  boolean start = Botao.acionado();
+  boolean start = Botao.isAcionado();
 
   if (start == true)
   {
