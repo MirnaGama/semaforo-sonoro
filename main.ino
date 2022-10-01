@@ -38,9 +38,21 @@ class AparelhoSonoro {
   void soarSinal() {
     tone(Piezo, 440, 500);
   }
-
+  
   void desligar() {
     noTone(Piezo);
+  }
+};
+
+class DetectorPresenca {
+  int sensorPIR;
+  
+  public: DetectorPresenca(int sensor) {
+    sensorPIR = sensor;
+  }
+  
+  boolean detectado() {
+    return analogRead(sensorPIR) > 0;
   }
 };
 
@@ -52,11 +64,11 @@ SemaforoPino MotoristaVerde(11);
 SemaforoPino PedestreVermelho(7);
 SemaforoPino PedestreVerde(6);
 AparelhoSonoro Som(10);
+DetectorPresenca Sensor(A0);
 
 void setup()
 {
   pinMode(botao, INPUT);
-  pinMode(som, OUTPUT);
 }
 
 void fecharParaMotorista() {
@@ -94,9 +106,9 @@ void loop()
    MotoristaVerde.ligar();
    PedestreVermelho.ligar();
 
-  int presenca = analogRead(A0);
+   boolean detectado = Sensor.detectado();
 
-  if (presenca > 0 && MotoristaVerde.estaLigado() == true) {
+  if (detectado && MotoristaVerde.estaLigado() == true) {
     Som.soarAlarme();
   } else {
     Som.desligar();
