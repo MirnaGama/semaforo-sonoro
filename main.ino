@@ -65,8 +65,8 @@ class DetectorPresenca {
     SensorPIR = sensor;
   }
   
-  boolean detectado() {
-    return analogRead(SensorPIR) > 0;
+  boolean isDetectado() {
+    return (digitalRead(SensorPIR) == HIGH);
   }
 };
 
@@ -77,7 +77,7 @@ SemaforoPino MotoristaVerde(11);
 SemaforoPino PedestreVermelho(7);
 SemaforoPino PedestreVerde(6);
 AparelhoSonoro Som(10);
-DetectorPresenca Sensor(A0);
+DetectorPresenca Sensor(1);
 
 void setup()
 {
@@ -120,14 +120,15 @@ void loop()
    MotoristaVerde.ligar();
    PedestreVermelho.ligar();
 
-   boolean detectado = Sensor.detectado();
+   boolean detectado = Sensor.isDetectado();
 
-  if (detectado && MotoristaVerde.isLigado() == true) {
+  if (detectado == true && MotoristaVerde.isLigado() == true) {
     Som.soarAlarme();
-  } else {
+    delay(100);
+  } else if (detectado == false || MotoristaVerde.isLigado() == false) {
     Som.desligar();
   }
-  
+    
   boolean start = Botao.isAcionado();
 
   if (start == true)
